@@ -1,0 +1,9 @@
+body { 
+	padding-bottom: 50px;
+	background-color: red; 
+}
+
+#carouselRow {
+	margin-top: 3rem;
+	margin-bottom: 3rem;
+}

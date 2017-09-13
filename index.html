@@ -24,9 +24,10 @@
 <body>
   <div class="container-fluid">
 
-    <div class="row"> <!-- row 1 with carousel -->
+    <div class="row" id="carouselRow"> <!-- row 1 with carousel -->    
       <div class="col-sm-6 col-sm-offset-3"> <!-- column to center carousel in first row -->
-        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        
+        <div class="carousel slide" data-ride="carousel">
           <!-- Indicators -->
           
           <!-- Fill this <ol> dynamically so that there's 1 entry per results -->
@@ -39,15 +40,15 @@
           <!-- Wrapper for slides -->
           <div class="carousel-inner" role="listbox">
             <div class="item active">
-              <img src="#" alt="#">
+              <img src="./assets/images/carousel_placeholder.png" alt="Alt Text Placeholder 1">
               <div class="carousel-caption">
-                
+                <!-- add caption HTML here -->
               </div>
             </div>
             <div class="item">
-              <img src="#" alt="#">
+              <img src="./assets/images/carousel_placeholder.png" alt="Alt Text Placeholder 2">
               <div class="carousel-caption">
-                
+                <!-- add caption HTML here -->
               </div>
             </div>
             
@@ -62,7 +63,7 @@
             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
           </a>
-        </div>
+        </div>        
       </div> <!-- /close carousel column -->
     </div> <!-- /close row 1 -->
 
@@ -93,7 +94,13 @@
         </div><!-- /input-group -->
       </div><!-- /.col-lg-6 -->
     </div><!-- /.row -->
-
+    <div class="row">
+      <nav class="navbar navbar-inverse navbar-fixed-bottom">
+        <div class="col-sm-6 col-sm-offset-3">
+          This is the footer.    
+        </div>
+    </div>
+</nav>
 
   </div> <!-- /close container-fluid -->
 </body>
