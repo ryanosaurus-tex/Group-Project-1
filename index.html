@@ -4,13 +4,26 @@
   <title>Who Else Sang It?</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- JQuery CDN -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- MeyerWeb Reset CSS -->
   <link rel="stylesheet" type="text/css" href="./assets/css/reset.css">
-  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  
+  <!-- Bootstrap JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+ 
+  <!-- My style Sheet -->
   <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
 </head>
 
 <body>
   <div class="container-fluid">
+
     <div class="row"> <!-- row 1 with carousel -->
       <div class="col-sm-6 col-sm-offset-3"> <!-- column to center carousel in first row -->
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -24,18 +37,18 @@
           <!-- Wrapper for slides -->
           <div class="carousel-inner" role="listbox">
             <div class="item active">
-              <img src="..." alt="...">
+              <img src="#" alt="#">
               <div class="carousel-caption">
                 
               </div>
             </div>
             <div class="item">
-              <img src="..." alt="...">
+              <img src="#" alt="#">
               <div class="carousel-caption">
-                ...
+                
               </div>
             </div>
-            ...
+            
           </div>
 
           <!-- Controls -->
@@ -50,11 +63,40 @@
         </div>
       </div> <!-- /close carousel column -->
     </div> <!-- /close row 1 -->
+
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3">
+        <div class="input-group">
+          <input type="text" class="form-control" aria-label="..." id="songSearchBox">
+          <div class="input-group-btn">
+
+            <!-- \\ SEARCH BUTTON // -->
+            <button type="button" class="btn btn-default" id="songSearchButton"> 
+              <span class="glyphicon glyphicon-search"></span>
+            </button>
+
+            <!-- \\ HISTORY BUTTON (dropdown) // -->
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">History &nbsp; <span class="caret"></span></button>
+              
+              <!-- \\ DROPDOWN MENU // -->
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li><a href="#">Most Recent Search</a></li>
+                <li><a href="#">Second Most Recent Search</a></li>
+                <li><a href="#">Third Most Recent Search</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Clear Search History</a></li>
+              </ul>
+
+          </div><!-- /btn-group -->
+        </div><!-- /input-group -->
+      </div><!-- /.col-lg-6 -->
+    </div><!-- /.row -->
+
+
   </div> <!-- /close container-fluid -->
 </body>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="./assets/javascript/app.js"></script>
 
+<script src="./assets/javascript/app.js"></script>
 
 </html>
