@@ -1,3 +1,27 @@
 body {
-	padding-top: 50px;
+	margin: 0;
+	padding-top: 70px;
+	background-color: #819499;
 }
+
+#mainWrapper {
+	margin: 0;
+	padding: 0;
+}
+
+#songCarousel {
+	margin-bottom: 3rem;
+}
+
+.slideBackground {
+	background-color: #cc476e;
+	min-height: 50vh;
+	width: 100%;
+}
+
+.navbar {
+	margin-bottom: 0;
+
+
+}
+
