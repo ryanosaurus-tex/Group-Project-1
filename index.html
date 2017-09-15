@@ -57,4 +57,34 @@
 <script src="./assets/javascript/app.js"></script>
 
 
+<script src="https://www.gstatic.com/firebasejs/4.3.1/firebase.js"></script>
+<script>
+// Initialize Firebase
+var config = {
+   apiKey: "AIzaSyDVPMUfhl1_TeTokggok5Xa0Z2YeakYclg",
+   authDomain: "gprojectmusicapp.firebaseapp.com",
+   databaseURL: "https://gprojectmusicapp.firebaseio.com",
+   projectId: "gprojectmusicapp",
+   storageBucket: "gprojectmusicapp.appspot.com",
+   messagingSenderId: "756183510423"
+ };
+firebase.initializeApp(config);
+
+function login(){
+  function newLoginHappened(user){
+    if (user){
+      app(user);
+    } else{
+      var provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithRedirect(provider);
+    }
+  }
+
+    firebase.auth().onAuthStateChanged(newLoginHappened);
+}
+
+    window.onload = login;
+
+
+
 </html>
