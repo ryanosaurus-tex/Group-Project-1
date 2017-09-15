@@ -4,13 +4,17 @@
   <title>Who Else Sang It?</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="./assets/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 
 <body>
-  <div class="container-fluid">
+  <div class="signInPage">
+    <button class="button" onclick="signIn();">Sign in with Google</button>
+  </div>
+
+  <div class="container-fluid" >
     <div class="row"> <!-- row 1 with carousel -->
       <div class="col-sm-6 col-sm-offset-3"> <!-- column to center carousel in first row -->
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -51,12 +55,8 @@
       </div> <!-- /close carousel column -->
     </div> <!-- /close row 1 -->
   </div> <!-- /close container-fluid -->
-</body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="./assets/javascript/app.js"></script>
-
-
 <script src="https://www.gstatic.com/firebasejs/4.3.1/firebase.js"></script>
 <script>
 // Initialize Firebase
@@ -69,22 +69,9 @@ var config = {
    messagingSenderId: "756183510423"
  };
 firebase.initializeApp(config);
-
-function login(){
-  function newLoginHappened(user){
-    if (user){
-      app(user);
-    } else{
-      var provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithRedirect(provider);
-    }
-  }
-
-    firebase.auth().onAuthStateChanged(newLoginHappened);
-}
-
-    window.onload = login;
-
-
-
+</script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<!--this script needs to come after firebase or it ignores firebase -->
+<script src="assets/app.js"></script>
+</body>
 </html>
