@@ -1,7 +1,7 @@
 body {
 	margin: 0;
-	padding-top: 70px;
-	background-color: #819499;
+	padding-top: 50px;
+	background-color: #819499;	
 }
 
 #mainWrapper {
@@ -15,13 +15,38 @@ body {
 
 .slideBackground {
 	background-color: #cc476e;
-	min-height: 50vh;
+	min-height: 60vh;
 	width: 100%;
 }
 
 .navbar {
 	margin-bottom: 0;
-
-
+	padding: 0 2rem;
+	background-color: #819499;	
+	border: none;
 }
 
+.navbar-default .navbar-brand {
+    color: #fff;
+}
+
+.navbar-default .navbar-nav>li>a  {
+    color: #fff;
+}
+
+.navbar-default .navbar-nav>li>a:visited  {
+    color: #fff;
+}
+
+.navbar-default .navbar-nav>li>a:hover  {
+    color: #fff;
+}
+
+.navbar-default .navbar-nav>li>a:active  {
+    color: #fff;
+}
+
+.navbar-brand {
+	font-family: sans-serif;    
+    font-weight: 400;
+}
