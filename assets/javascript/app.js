@@ -39,6 +39,15 @@ function signIn(){
   });
 }; //closes signIn()
 
+// Google user sign-out function
+
+function signOut() {
+  var auth2 = gapi.auth2.getAuthInstance();
+  auth2.signOut().then(function () {
+    console.log('User signed out.');
+  });
+};
+
 $(document).ready(function(){
 
   // Display Modal on page load -rw
@@ -49,8 +58,10 @@ $(document).ready(function(){
     signIn();    
   });
 
-  
+  // Add on-click event for Google Log Out Link 
 
-
+  $("#googleLogoutLink").on("click", function(){
+    GoogleAuth.signOut();
+  });
 
 }); //close document.ready
