@@ -62,6 +62,8 @@ $(document).ready(function(){
 
   $("#googleLogoutLink").on("click", function(){
     GoogleAuth.signOut();
+    $("#userName").text("Log In");
+
   });
 
 }); //close document.ready
