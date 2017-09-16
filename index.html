@@ -20,6 +20,7 @@
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/4.3.1/firebase.js"></script>
 
+  <!-- Google Login -->
   <script src="https://apis.google.com/js/platform.js" async defer></script>
 
   <!-- Adobe Typekit Fonts -->
@@ -56,7 +57,7 @@
 
         <!-- Modal Footer -->
         <div class="modal-footer">
-          <button type="button" id="userLoginButton" class="btn btn-block btn-lg btn-primary">Log In with Google</button>    
+          <button type="button" id="userLoginButton" class="btn btn-block btn-lg btn-primary" data-dismiss="modal">Log In with Google</button>    
         </div>
 
       </div>
@@ -88,7 +89,8 @@
               <!-- \\ User Dropdown // -->
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">            
-                <span class="glyphicon glyphicon-user"></span><span id="userName">User Name</span> <span class="caret"></span></a>
+                <span class="glyphicon glyphicon-user"></span>&nbsp;
+                <span id="userName">User Name</span> <span class="caret"></span></a>
                 <ul class="dropdown-menu">
 
                   <!-- \\ Log Out Button // -->
