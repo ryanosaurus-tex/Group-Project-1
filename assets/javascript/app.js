@@ -1,20 +1,19 @@
-$(document).ready(function(){
-  $("#loginModal").modal({show: true});
+// FIREBASE LOGIN --------------------------------------------------
 
+// Initialize Firebase
+var config = {
+   apiKey: "AIzaSyDVPMUfhl1_TeTokggok5Xa0Z2YeakYclg",
+   authDomain: "gprojectmusicapp.firebaseapp.com",
+   databaseURL: "https://gprojectmusicapp.firebaseio.com",
+   projectId: "gprojectmusicapp",
+   storageBucket: "gprojectmusicapp.appspot.com",
+   messagingSenderId: "756183510423"
+ };
 
-}); //close document.ready
-
-
-/* TEMPORARY COMMENT OUT
+firebase.initializeApp(config);
 
 //an instance of the google provider object
 var provider = new firebase.auth.GoogleAuthProvider();
-
-//hides the container-fluid page and shows login when page loads
-$(document).ready(function(){
-  $(".container-fluid").hide;
-  $(".xxxxxxxxxx").show;
-});
 
 //sign in button clicked this happens
 function signIn(){
@@ -25,27 +24,33 @@ function signIn(){
   var user = result.user;
       console.log(user.displayName);
 
-//either showMainPage(); or just add .hide or nothing      
+  // Add user.displayName to DOM -rw
+  $("#userName").text(user.displayName);     
 
-//if error then this () will run
-}).catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  // The email of the user's account used.
-  var email = error.email;
-  // The firebase.auth.AuthCredential type that was used.
-  var credential = error.credential;
-  // ...
-});
-
+  //if error then this () will run
+  }).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // The email of the user's account used.
+    var email = error.email;
+    // The firebase.auth.AuthCredential type that was used.
+    var credential = error.credential;    
+  });
 }; //closes signIn()
 
-//closes signin page and opens main page
-function showMainPage(){
-//need div id
-  $("#xxxxx").hide();
-  $(".container-fluid").show();
-};
+$(document).ready(function(){
 
-*/
+  // Display Modal on page load -rw
+  $("#loginModal").modal({show: true});
+
+  // Add on-click event to Google Login Button
+  $("#userLoginButton").on("click", function(){
+    signIn();    
+  });
+
+  
+
+
+
+}); //close document.ready
