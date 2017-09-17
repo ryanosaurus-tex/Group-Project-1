@@ -14,6 +14,13 @@ firebase.initializeApp(config);
 
 //an instance of the google provider object
 var provider = new firebase.auth.GoogleAuthProvider();
+var database = firebase.database();
+
+//i added this
+//my variables
+var user;
+var songSearch;
+//
 
 //sign in button clicked this happens
 function signIn(){
@@ -21,8 +28,9 @@ function signIn(){
   // This gives you a Google Access Token. You can use it to access the Google API.
   var token = result.credential.accessToken;
   // The signed-in user info.
-  var user = result.user;
-      console.log(user.displayName);
+  user = result.user;
+      console.log("Name is " + user.displayName); //works
+      //console.log("Email is " + user.email); works
 
   // Add user.displayName to DOM -rw
   $("#userName").text(user.displayName);     
@@ -46,7 +54,7 @@ function signOut() {
   auth2.signOut().then(function () {
     console.log('User signed out.');
   });
-};
+}; //closes (signOut)
 
 $(document).ready(function(){
 
@@ -65,5 +73,32 @@ $(document).ready(function(){
     $("#userName").text("Log In");
 
   });
-
 }); //close document.ready
+
+//i added below
+// Capture submit button click
+$("#songSearchButton").on("click", function() {
+// won't click if nothing in form
+  event.preventDefault();
+
+//Update variables with user data
+songSearch = $("#songSearchBox").val().trim();
+     console.log("Search this song " + songSearch); 
+
+// sends data to the database
+ database.ref().child("Users").push({ 
+//setting up the JSON for database
+       songSearch: songSearch
+  });
+    console.log("Add this song " + songSearch);   
+
+// clears the text box
+  $("#songSearchBox").val("");
+
+}); //closes submit button click
+
+ database.ref().on("value", function(snapshot) {
+      console.log(snapshot.val());
+     }, function(errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    }); //close errorObject
