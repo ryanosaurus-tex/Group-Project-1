@@ -16,26 +16,23 @@ firebase.initializeApp(config);
 var provider = new firebase.auth.GoogleAuthProvider();
 var database = firebase.database();
 
-//i added this
-//my variables
+//variables
 var user;
 var songSearch;
-//
 
-//sign in button clicked this happens
+//sign in button 
 function signIn(){
   firebase.auth().signInWithPopup(provider).then(function(result) {
-  // This gives you a Google Access Token. You can use it to access the Google API.
+// This gives you a Google Access Token. You can use it to access the Google API.
   var token = result.credential.accessToken;
-  // The signed-in user info.
+// The signed-in user info.
   user = result.user;
-      console.log("Name is " + user.displayName); //works
-      //console.log("Email is " + user.email); works
+      //console.log("Name is " + user.displayName); 
 
-  // Add user.displayName to DOM -rw
+// Add user.displayName to DOM -rw
   $("#userName").text(user.displayName);     
 
-  //if error then this () will run
+//if error then this () will run
   }).catch(function(error) {
     // Handle Errors here.
     var errorCode = error.code;
@@ -48,7 +45,6 @@ function signIn(){
 }; //closes signIn()
 
 // Google user sign-out function
-
 function signOut() {
   var auth2 = gapi.auth2.getAuthInstance();
   auth2.signOut().then(function () {
@@ -75,30 +71,33 @@ $(document).ready(function(){
   });
 }); //close document.ready
 
-//i added below
 // Capture submit button click
 $("#songSearchButton").on("click", function() {
-// won't click if nothing in form
   event.preventDefault();
+
+  var firebaseUser = firebase.auth().currentUser;
+  var user_id = firebaseUser.uid;
 
 //Update variables with user data
 songSearch = $("#songSearchBox").val().trim();
-     console.log("Search this song " + songSearch); 
+     //console.log("Search this song " + songSearch); 
 
-// sends data to the database
- database.ref().child("Users").push({ 
+//sends data to firebase
+      database.ref().child("Users").child(user_id).child("song_searched").push({ 
 //setting up the JSON for database
-       songSearch: songSearch
+       text: songSearch  
   });
-    console.log("Add this song " + songSearch);   
+    //console.log("Add this song " + songSearch);  
 
-// clears the text box
+//clears the search text box
   $("#songSearchBox").val("");
 
 }); //closes submit button click
 
  database.ref().on("value", function(snapshot) {
-      console.log(snapshot.val());
+      //console.log(snapshot.val()); 
      }, function(errorObject) {
       console.log("The read failed: " + errorObject.code);
     }); //close errorObject
+
+//still need to write code for the appending to search history, kk
