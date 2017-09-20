@@ -105,7 +105,7 @@ database.ref().on("value", function(childSnapshot) {
   var test = childSnapshot.key;
   var test2 = childSnapshot.val();
   var dropDownMenu = $('#search-dropdown-menu');
-  dropDownMenu.html(); //zero out the list
+  dropDownMenu.empty(); //zero out the list
   
   for(var foo in test2){
     var value = test2[foo].songSearch;
