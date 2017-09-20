@@ -14,6 +14,11 @@ firebase.initializeApp(config);
 
 //an instance of the google provider object
 var provider = new firebase.auth.GoogleAuthProvider();
+var database = firebase.database();
+
+//my variables
+var user;
+var songSearch;
 
 //sign in button clicked this happens
 function signIn(){
@@ -67,3 +72,59 @@ $(document).ready(function(){
   });
 
 }); //close document.ready
+
+// Capture submit button click
+$("#songSearchButton").on("click", function() {
+// won't click if nothing in form
+event.preventDefault();
+
+var firebaseUser = firebase.auth().currentUser;
+var userId = firebaseUser.uid;
+
+//Update variables with user data
+songSearch = $("#songSearchBox").val().trim();
+     //console.log("Search this song " + songSearch); 
+
+// sends data to the database, sets up JSON
+database.ref().child(userId).push({
+ songSearch: songSearch
+});
+    //console.log("Add this song " + songSearch);   
+
+// clears the text box
+$("#songSearchBox").val("");
+
+}); //closes submit button click
+
+function onHistorySelect(value){
+  $('#songSearchBox').val(value);
+}
+
+//see notes for what i tried and failed
+database.ref().on("value", function(childSnapshot) {
+  childSnapshot.forEach(function(childSnapshot){
+  var test = childSnapshot.key;
+  var test2 = childSnapshot.val();
+  var dropDownMenu = $('#search-dropdown-menu');
+  dropDownMenu.empty(); //zero out the list
+  
+  for(var foo in test2){
+    var value = test2[foo].songSearch;
+    //var event = "onClick = onHistorySelect('" + value + "')";
+    //console.log(event);
+    var html = "<li><a href='#' class='dropDownListItem' data-name='"+ value + "'>" + value + "</a></li>";
+    dropDownMenu.append(html);
+}
+$('.dropDownListItem').click(function(e) {
+    var name = e.currentTarget;
+    console.log(name.getAttribute("data-name"));
+    var selected = name.getAttribute("data-name");
+    $( '#songSearchBox' ).val(selected);
+    $( "#songSearchButton" ).trigger( "click" );
+});
+ // console.log("this is snapshot"+ childSnapshot.val());  
+  });
+  
+}, function(errorObject) {
+  console.log("The read failed: " + errorObject.code);
+   }); //close errorObject
