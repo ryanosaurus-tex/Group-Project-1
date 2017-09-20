@@ -2,13 +2,13 @@
 
 // Initialize Firebase
 var config = {
-   apiKey: "AIzaSyDVPMUfhl1_TeTokggok5Xa0Z2YeakYclg",
-   authDomain: "gprojectmusicapp.firebaseapp.com",
-   databaseURL: "https://gprojectmusicapp.firebaseio.com",
-   projectId: "gprojectmusicapp",
-   storageBucket: "gprojectmusicapp.appspot.com",
-   messagingSenderId: "756183510423"
- };
+ apiKey: "AIzaSyDVPMUfhl1_TeTokggok5Xa0Z2YeakYclg",
+ authDomain: "gprojectmusicapp.firebaseapp.com",
+ databaseURL: "https://gprojectmusicapp.firebaseio.com",
+ projectId: "gprojectmusicapp",
+ storageBucket: "gprojectmusicapp.appspot.com",
+ messagingSenderId: "756183510423"
+};
 
 firebase.initializeApp(config);
 
@@ -16,24 +16,24 @@ firebase.initializeApp(config);
 var provider = new firebase.auth.GoogleAuthProvider();
 var database = firebase.database();
 
-//variables
+//my variables
 var user;
 var songSearch;
 
-//sign in button 
+//sign in button clicked this happens
 function signIn(){
   firebase.auth().signInWithPopup(provider).then(function(result) {
-// This gives you a Google Access Token. You can use it to access the Google API.
+  // This gives you a Google Access Token. You can use it to access the Google API.
   var token = result.credential.accessToken;
-// The signed-in user info.
+  // The signed-in user info.
   user = result.user;
       //console.log("Name is " + user.displayName); 
 
-// Add user.displayName to DOM -rw
+  // Add user.displayName to DOM -rw
   $("#userName").text(user.displayName);     
 
-//if error then this () will run
-  }).catch(function(error) {
+  //if error then this () will run
+}).catch(function(error) {
     // Handle Errors here.
     var errorCode = error.code;
     var errorMessage = error.message;
@@ -45,6 +45,7 @@ function signIn(){
 }; //closes signIn()
 
 // Google user sign-out function
+
 function signOut() {
   var auth2 = gapi.auth2.getAuthInstance();
   auth2.signOut().then(function () {
@@ -73,31 +74,56 @@ $(document).ready(function(){
 
 // Capture submit button click
 $("#songSearchButton").on("click", function() {
-  event.preventDefault();
+// won't click if nothing in form
+event.preventDefault();
 
-  var firebaseUser = firebase.auth().currentUser;
-  var user_id = firebaseUser.uid;
+var firebaseUser = firebase.auth().currentUser;
+var userId = firebaseUser.uid;
 
 //Update variables with user data
 songSearch = $("#songSearchBox").val().trim();
      //console.log("Search this song " + songSearch); 
 
-//sends data to firebase
-      database.ref().child("Users").child(user_id).child("song_searched").push({ 
-//setting up the JSON for database
-       text: songSearch  
-  });
-    //console.log("Add this song " + songSearch);  
+// sends data to the database, sets up JSON
+database.ref().child(userId).push({
+ songSearch: songSearch
+});
+    //console.log("Add this song " + songSearch);   
 
-//clears the search text box
-  $("#songSearchBox").val("");
+// clears the text box
+$("#songSearchBox").val("");
 
 }); //closes submit button click
 
- database.ref().on("value", function(snapshot) {
-      //console.log(snapshot.val()); 
-     }, function(errorObject) {
-      console.log("The read failed: " + errorObject.code);
-    }); //close errorObject
+function onHistorySelect(value){
+  $('#songSearchBox').val(value);
+}
 
-//still need to write code for the appending to search history, kk
+//see notes for what i tried and failed
+database.ref().on("value", function(childSnapshot) {
+  childSnapshot.forEach(function(childSnapshot){
+  var test = childSnapshot.key;
+  var test2 = childSnapshot.val();
+  var dropDownMenu = $('#search-dropdown-menu');
+  dropDownMenu.html(); //zero out the list
+  
+  for(var foo in test2){
+    var value = test2[foo].songSearch;
+    //var event = "onClick = onHistorySelect('" + value + "')";
+    //console.log(event);
+    var html = "<li><a href='#' class='dropDownListItem' data-name='"+ value + "'>" + value + "</a></li>";
+    dropDownMenu.append(html);
+}
+$('.dropDownListItem').click(function(e) {
+    var name = e.currentTarget;
+    console.log(name.getAttribute("data-name"));
+    var selected = name.getAttribute("data-name");
+    $( '#songSearchBox' ).val(selected);
+    $( "#songSearchButton" ).trigger( "click" );
+});
+ // console.log("this is snapshot"+ childSnapshot.val());  
+  });
+  
+}, function(errorObject) {
+  console.log("The read failed: " + errorObject.code);
+   }); //close errorObject
