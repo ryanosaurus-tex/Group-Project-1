@@ -57,8 +57,9 @@ function signOut() {
   }).catch(function(error) {
   // An error happened.
   });  
-};
+}; // /signOut() Google Account--------------------------
 
+// toggle login/logout link------------------------------
 function toggleLogin () {
   $("#userName").text("Sign In");
   // Change Sign Out link to say 'Sign In'
@@ -70,9 +71,13 @@ function toggleLogin () {
     // Change SIGN IN on click to SIGN OUT on click
     $("#googleLogoutLink").on( "click", function(){ signOut(); });
   });
-};
+}; // /toggle login/logout link---------------------------
 
-// /signOut() Google Account-----------------------------
+// history select-----------------------------------------
+function onHistorySelect(value) {
+  $('#songSearchBox').val(value);
+}; // /history select-------------------------------------
+
 
 //////////////////// DOC.READY \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
@@ -115,44 +120,39 @@ $(document).ready(function(){
 
   }); //closes submit button click
 
-  function onHistorySelect(value) {
-    $('#songSearchBox').val(value);
-  };
-
-//see notes for what i tried and failed
-database.ref().on("value", function(childSnapshot) {
-  childSnapshot.forEach(function(childSnapshot) {
-    var test = childSnapshot.key;
-    var test2 = childSnapshot.val();  
-    var dropDownMenu = $('#search-dropdown-menu');
-    dropDownMenu.empty(); //zero out the list
-    console.log(test2);
+  //see notes for what i tried and failed
+  database.ref().on("value", function(childSnapshot) {
+    childSnapshot.forEach(function(childSnapshot) {
+      var test = childSnapshot.key;
+      var test2 = childSnapshot.val();  
+      var dropDownMenu = $('#search-dropdown-menu');
+      dropDownMenu.empty(); //zero out the list
+      console.log(test2);
   
-    for(var foo in test2) {
-      var value = test2[foo].songSearch;
-      //var event = "onClick = onHistorySelect('" + value + "')";
-      //console.log(event);
-      var html = "<li><a href='#' class='dropDownListItem' data-name='"+ value + "'>" + value + "</a></li>";
-      dropDownMenu.append(html);
+      for(var foo in test2) {
+        var value = test2[foo].songSearch;
+        //var event = "onClick = onHistorySelect('" + value + "')";
+        //console.log(event);
+        var html = "<li><a href='#' class='dropDownListItem' data-name='"+ value + "'>" + value + "</a></li>";
+        dropDownMenu.append(html);
 
-      $('.dropDownListItem').click(function(e) {
-        var name = e.currentTarget;
-        console.log(name.getAttribute("data-name"));
-        var selected = name.getAttribute("data-name");
-        $( '#songSearchBox' ).val(selected);
-        $( "#songSearchButton" ).trigger( "click" );
-      });
-      // console.log("this is snapshot"+ childSnapshot.val());
-    };
-  });
+        $('.dropDownListItem').click(function(e) {
+          var name = e.currentTarget;
+          console.log(name.getAttribute("data-name"));
+          var selected = name.getAttribute("data-name");
+          $( '#songSearchBox' ).val(selected);
+          $( "#songSearchButton" ).trigger( "click" );
+        });
+        // console.log("this is snapshot"+ childSnapshot.val());
+      };
+    });
 
-}, function(errorObject) {
-    console.log("The read failed: " + errorObject.code);
-  }); //close errorObject
+  }, function(errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    }); // /close errorObject
 
-
-
-
+}); // /close document.ready
+/*
 // KIM MATHIS-----------------------------------
 
       // This .on("click") function will validate the input and make the Ajax call
@@ -209,7 +209,7 @@ database.ref().on("value", function(childSnapshot) {
           
   // if we need to get the corrected track title, put the below into the "done" function of the ajax all above;  the ajax call below hasn't been tested but I will test
    // it tomorrow (Wednesday) 
-  /*     for (var i = 0; i < trackMBIDs.length; i++) {                    
+       for (var i = 0; i < trackMBIDs.length; i++) {                    
           var queryURL2 = "http://ws.audioscrobbler.com/2.0/?method=album.getinfo&artist_mbid=" + artistMBIDs[i] + "&track_mbid=" + trackMBIDs[i] +"&autocorrect=1&api_key=e47dcd6e943da8b5a8c9f9fee2c19c35&format=json";       
            $.ajax({
               url: queryURL2,
@@ -217,9 +217,10 @@ database.ref().on("value", function(childSnapshot) {
             }).done(function(response){
                correctedTrackName.push(response.results.trackmatches.track[i].name);   
              });  //end 2nd ajax call
-       };  // end for i loop  */
+       };  // end for i loop  
        
-       
+
+/*       
        function checkInput(){
         if (!songInput.match(/[a-zA-Z]$/) && songInput != "") {
           songInput.value="";
@@ -229,4 +230,3 @@ database.ref().on("value", function(childSnapshot) {
       
             });  // end on-click    
 
-}); //close document.ready
