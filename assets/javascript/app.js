@@ -212,7 +212,7 @@ function queryMusixmatch() {
         });  //end 2nd ajax call
     };  // end for i loop
     */  
-    
+
   });  // end of ajax call        
 };
 // /queryMusixmatch() -----------------------------------
@@ -265,6 +265,7 @@ $(document).ready(function(){
     event.preventDefault();
 
     queryMusixmatch();
+    search();
 
     var firebaseUser = firebase.auth().currentUser;
     var userId = firebaseUser.uid;
