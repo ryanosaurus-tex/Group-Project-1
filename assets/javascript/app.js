@@ -139,7 +139,7 @@ function queryMusixmatch() {
     };   //  end j for loop 
            
     for (var i = 0; i < trackMBIDs.length; i++) {                    
-      var queryURL2 = "http://ws.audioscrobbler.com/2.0/" +
+      var queryURL2 = "https://ws.audioscrobbler.com/2.0/" +
                       "?method=album.getinfo&artist_mbid=" +artistMBIDs[i] +
                       "&track_mbid=" +trackMBIDs[i] +
                       "&autocorrect=1" +
