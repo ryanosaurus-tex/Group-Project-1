@@ -61,22 +61,7 @@ function signOut() {
 
 // toggle login/logout link------------------------------
 function toggleLogin () {
-  $("#userName").text("Sign In");
-  // Change Sign Out link to say 'Sign In'
-  $("#googleLogoutLink").text("Sign In");
-  // Change Sign Out on click to Sign In on click
-  $("#googleLogoutLink").on( "click", function(){ 
-    signIn();
-    $("#googleLogoutLink").text("Sign Out").on( "click", function(){ 
-      signOut();
-      $("#userName").text("Sign In");
-      // Change Sign Out link to say 'Sign In'
-      $("#googleLogoutLink").text("Sign In");
-      // Change Sign Out on click to Sign In on click
-      $("#googleLogoutLink").on( "click", function(){ 
-        signIn();
-      });
-    });
+ // ADD FUNCTION HERE
 }; // /toggle login/logout link---------------------------
 
 // history select-----------------------------------------
@@ -99,7 +84,7 @@ $(document).ready(function(){
   $("#googleLogoutLink").on( "click", function(){ 
       signOut();
       console.log( user.displayName + " has signed out!");
-      toggleLogin();
+      // toggleLogin();
   });      
   
   // Add on-click event to save search to firebase
