@@ -86,7 +86,7 @@ $(document).ready(function(){
     database.ref().child(userId).push({
       songSearch: songSearch      
     }); 
-    
+
     console.log("Add this song " + songSearch); 
 
     // clears the text box
@@ -162,7 +162,7 @@ $('.dropDownListItem').click(function(e) {
     var toParse = "";
     var prsd = "";     
 
-     var queryURL = "http://api.musixmatch.com/ws/1.1/track.search?format=jsonp&callback=jsonp&q_track=" +  songInput + "&page_size=20&page=1&s_artist_rating=desc&s_track_release_date=asc&apikey=22ae38424752041f521c1ee852af0c25";
+     var queryURL = "https://api.musixmatch.com/ws/1.1/track.search?format=jsonp&callback=jsonp&q_track=" +  songInput + "&page_size=20&page=1&s_artist_rating=desc&s_track_release_date=asc&apikey=22ae38424752041f521c1ee852af0c25";
 
       $.ajax({
               url: queryURL,
