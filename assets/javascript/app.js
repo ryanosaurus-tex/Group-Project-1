@@ -54,6 +54,7 @@ function signOut() {
   auth2.signOut().then(function () {
     console.log( user + ' has signed out.');
   });
+  $("#userName").text("Log In");
 };
 // /signOut() Google Account-----------------------------
 
