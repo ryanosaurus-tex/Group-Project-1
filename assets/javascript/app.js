@@ -196,7 +196,8 @@ function queryMusixmatch() {
       convDate = convDate.slice(0,10);                   
       relDates.push(moment(convDate).format("L"));               
     };   //  end j for loop 
-           
+
+    /*           
     for (var i = 0; i < trackMBIDs.length; i++) {                    
       var queryURL2 = "https://ws.audioscrobbler.com/2.0/" +
                       "?method=album.getinfo&artist_mbid=" +artistMBIDs[i] +
@@ -209,7 +210,9 @@ function queryMusixmatch() {
       }).done(function(response){
           correctedTrackName.push(response.results.trackmatches.track[i].name);
         });  //end 2nd ajax call
-    };  // end for i loop  
+    };  // end for i loop
+    */  
+    
   });  // end of ajax call        
 };
 // /queryMusixmatch() -----------------------------------
