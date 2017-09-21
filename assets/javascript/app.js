@@ -228,33 +228,7 @@ $(document).ready(function(){
   }, function(errorObject) {
       console.log("The read failed: " + errorObject.code);
     }); // /close errorObject
-
-//=================================================================
-
-
-      // This .on("click") function will validate the input and make the Ajax call
-      $("#songSearchButton").on("click", function(event) {        
-        event.preventDefault();    
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//=============================================================
-
+  
 }); // /close document.ready
 
 
