@@ -33,7 +33,7 @@ function signIn() {
   var token = result.credential.accessToken;
   // The signed-in user info.
   user = result.user;
-      console.log(user.displayName);
+  console.log(user.displayName);
   // Add user.displayName to DOM -rw
   $("#userName").text(user.displayName);
   //if error then this () will run
@@ -75,6 +75,7 @@ $(document).ready(function(){
   $("#googleLogoutLink").on( "click", function(){ 
       signOut();
       $("#userName").text("Log In");
+      console.log("user signed out!")
     });
 
   // Add on-click event to save search to firebase
