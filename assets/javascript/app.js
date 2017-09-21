@@ -21,6 +21,7 @@ var provider = new firebase.auth.GoogleAuthProvider();
 var database = firebase.database();
 var user = "";
 var songSearch = "";
+var userDisplayName = "";
 
 
 //////////////////// FUNCTIONS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -33,6 +34,7 @@ function signIn() {
   var token = result.credential.accessToken;
   // The signed-in user info.
   user = result.user;
+  userDisplayName = user.displayName;
   console.log(user.displayName);
   // Add user.displayName to DOM -rw
   $("#userName").text(user.displayName);
@@ -79,13 +81,13 @@ $(document).ready(function(){
       // Change Sign Out link to say 'Sign In'
       $("#googleLogoutLink").text("Sign In");
       // Change Sign Out on click to Sign In on click
-      // $("#googleLogoutLink").on( "click", function(){ 
-      //   signIn();
-      //   $("#googleLogoutLink").on( "click", function(){ 
-      //     signOut();
-      //     $("#googleLogoutLink").text("Sign Out");
-      //   });
-      // });
+      $("#googleLogoutLink").on( "click", function(){ 
+        signIn();
+        $("#googleLogoutLink").on( "click", function(){ 
+          signOut();
+          $("#googleLogoutLink").text("Sign Out");
+        });
+      });
       
     });
 
