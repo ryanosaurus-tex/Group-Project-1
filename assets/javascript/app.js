@@ -59,6 +59,14 @@ function signOut() {
   });  
 };
 
+function toggleLogin () {
+  $("#userName").text("Sign In");
+  // Change Sign Out link to say 'Sign In'
+  $("#googleLogoutLink").text("Sign In");
+  // Change Sign Out on click to Sign In on click
+  $("#googleLogoutLink").on( "click", function(){ signIn(); });
+};
+
 // /signOut() Google Account-----------------------------
 
 //////////////////// DOC.READY \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -76,20 +84,11 @@ $(document).ready(function(){
   // Add on-click event for Google Log Out Link 
   $("#googleLogoutLink").on( "click", function(){ 
       signOut();
-      console.log( user.displayName + " has signed out!")
-      $("#userName").text("Sign In");
-      // Change Sign Out link to say 'Sign In'
-      $("#googleLogoutLink").text("Sign In");
-      // Change Sign Out on click to Sign In on click
-      $("#googleLogoutLink").on( "click", function(){ 
-        signIn();
-        $("#googleLogoutLink").on( "click", function(){ 
-          signOut();
-          $("#googleLogoutLink").text("Sign Out");
-        });
-      });
-      
+      console.log( user.displayName + " has signed out!");
+      toggleLogin();
     });
+      
+  });
 
   // Add on-click event to save search to firebase
   $("#songSearchButton").on( "click", function() {
