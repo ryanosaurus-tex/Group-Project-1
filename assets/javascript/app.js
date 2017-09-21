@@ -1,4 +1,4 @@
-////////////// FIREBASE \\\\\\\\\\\\
+//////////////////// FIREBASE \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 // Initialize Firebase
 var config = {
@@ -12,26 +12,30 @@ var config = {
 
 firebase.initializeApp(config);
 
+
+
+//////////////////// VARIABLES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
 //an instance of the google provider object
 var provider = new firebase.auth.GoogleAuthProvider();
 var database = firebase.database();
+var user = "";
+var songSearch = "";
 
-//my variables
-var user;
-var songSearch;
 
-//sign in button clicked this happens
-function signIn(){
+//////////////////// FUNCTIONS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+// signIn() Google Account------------------------------
+function signIn() {
+
   firebase.auth().signInWithPopup(provider).then(function(result) {
-  // This gives you a Google Access Token. You can use it to access the Google API.
+  // Creates Google Access Token. Use it to access the Google API.
   var token = result.credential.accessToken;
   // The signed-in user info.
-  var user = result.user;
+  user = result.user;
       console.log(user.displayName);
-
   // Add user.displayName to DOM -rw
-  $("#userName").text(user.displayName);     
-
+  $("#userName").text(user.displayName);
   //if error then this () will run
   }).catch(function(error) {
     // Handle Errors here.
@@ -41,17 +45,19 @@ function signIn(){
     var email = error.email;
     // The firebase.auth.AuthCredential type that was used.
     var credential = error.credential;    
-  });
-}; //closes signIn()
+    });
+}; // /signIn() Google Account---------------------------
 
-// Google user sign-out function
-
+// signOut() Google Account------------------------------
 function signOut() {
   var auth2 = gapi.auth2.getAuthInstance();
   auth2.signOut().then(function () {
-    console.log('User signed out.');
+    console.log( user + ' has signed out.');
   });
 };
+// /signOut() Google Account-----------------------------
+
+//////////////////// DOC.READY \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 $(document).ready(function(){
 
@@ -59,15 +65,12 @@ $(document).ready(function(){
   $("#loginModal").modal({show: true});
 
   // Add on-click event to Google Login Button
-  $("#userLoginButton").on("click", function(){
-    signIn();    
-  });
+  $("#userLoginButton").on("click", function(){signIn();});
 
   // Add on-click event for Google Log Out Link 
   $("#googleLogoutLink").on("click", function(){
-    GoogleAuth.signOut();
+    signOut();
     $("#userName").text("Log In");
-
   });
 
   // Add on-click event to save search to firebase
@@ -80,14 +83,14 @@ $(document).ready(function(){
 
     //Update variables with user data
     songSearch = $("#songSearchBox").val().trim();
-    console.log("Search this song " + songSearch); 
+    console.log("Search this song: " + songSearch); 
 
     // sends data to the database, sets up JSON
     database.ref().child(userId).push({
       songSearch: songSearch      
     }); 
 
-    console.log("Add this song " + songSearch); 
+    console.log("Add this song: " + songSearch); 
 
     // clears the text box
     $("#songSearchBox").val("");
@@ -105,7 +108,7 @@ database.ref().on("value", function(childSnapshot) {
   var test2 = childSnapshot.val();  
   var dropDownMenu = $('#search-dropdown-menu');
   dropDownMenu.empty(); //zero out the list
-  console.log(test);
+  console.log(test2);
   
   for(var foo in test2) {
     var value = test2[foo].songSearch;
