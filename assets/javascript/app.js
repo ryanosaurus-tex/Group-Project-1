@@ -12,7 +12,7 @@ var config = {
 
 firebase.initializeApp(config);
 
-
+// this should be updating but it is not WHY
 
 //////////////////// VARIABLES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
