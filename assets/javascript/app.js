@@ -69,7 +69,10 @@ function toggleLogin () {
     signIn();
     $("#googleLogoutLink").text("Sign Out");
     // Change SIGN IN on click to SIGN OUT on click
-    $("#googleLogoutLink").on( "click", function(){ signOut(); });
+    $("#googleLogoutLink").on( "click", function(){ 
+      signOut();
+      toggleLogin();
+    });
   });
 }; // /toggle login/logout link---------------------------
 
