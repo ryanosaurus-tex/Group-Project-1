@@ -59,11 +59,6 @@ function signOut() {
   });  
 }; // /signOut() Google Account--------------------------
 
-// toggle login/logout link------------------------------
-//function toggleLogin () {
- // ADD FUNCTION HERE
-//}; // /toggle login/logout link---------------------------
-
 // history select-----------------------------------------
 function onHistorySelect(value) {
   $('#songSearchBox').val(value);
