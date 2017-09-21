@@ -64,7 +64,12 @@ function toggleLogin () {
   // Change Sign Out link to say 'Sign In'
   $("#googleLogoutLink").text("Sign In");
   // Change Sign Out on click to Sign In on click
-  $("#googleLogoutLink").on( "click", function(){ signIn(); });
+  $("#googleLogoutLink").on( "click", function(){ 
+    signIn();
+    $("#googleLogoutLink").text("Sign Out");
+    // Change SIGN IN on click to SIGN OUT on click
+    $("#googleLogoutLink").on( "click", function(){ signOut(); });
+  });
 };
 
 // /signOut() Google Account-----------------------------
