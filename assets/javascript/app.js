@@ -70,8 +70,7 @@ $(document).ready(function(){
 
   // Add on-click event for Google Log Out Link 
   $("#googleLogoutLink").on("click", function(){
-    signOut();
-    $("#userName").text("Log In");
+    signOut();    
   });
 
   // Add on-click event to save search to firebase
