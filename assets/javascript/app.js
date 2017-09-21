@@ -16,12 +16,27 @@ firebase.initializeApp(config);
 
 //////////////////// VARIABLES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
+
+
 //an instance of the google provider object
 var provider = new firebase.auth.GoogleAuthProvider();
 var database = firebase.database();
 var user = "";
-var songSearch = "";
 var userDisplayName = "";
+var songSearch = "";
+
+var albums = [];
+var albumIDs = [];
+var albumMBIDs = [];
+var artists = [];
+var artistMBIDs = [];
+var lyricsIDs = [];
+var relDates = [];  
+var trackMBIDs = [];
+var trackName= [];
+var correctedTrackName= [];
+var toParse = "";
+var prsd = "";
 
 
 //////////////////// FUNCTIONS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -48,7 +63,9 @@ function signIn() {
     // The firebase.auth.AuthCredential type that was used.
     var credential = error.credential;    
     });
-}; // /signIn() Google Account---------------------------
+}; 
+// /signIn() Google Account------------------------------
+
 
 // signOut() Google Account------------------------------
 function signOut() {
@@ -57,12 +74,85 @@ function signOut() {
   }).catch(function(error) {
   // An error happened.
   });  
-}; // /signOut() Google Account--------------------------
+}; 
+// /signOut() Google Account-----------------------------
 
-// history select-----------------------------------------
+
+// onHistorySelect(value) -------------------------------
 function onHistorySelect(value) {
   $('#songSearchBox').val(value);
-}; // /history select-------------------------------------
+}; 
+// /onHistorySelect(value) ------------------------------
+
+
+// checkInput() -----------------------------------------
+function checkInput() {
+  if (!songInput.match(/[a-zA-Z]$/) && songInput != ""){
+    songInput.value="";
+    alert("Please enter only alphabetic characters");
+  }; 
+}; 
+// /checkInput() ----------------------------------------
+
+
+// queryMusixmatch() ------------------------------------
+function queryMusixmatch() {
+  // Capture input box -> Song Title
+  var songInput = $("#songSearchBox").val().trim().toLowerCase();
+  // Query Musixmatch by Song Title & return Artist Names, Release Dates, Song Title
+  var queryURL = "https://api.musixmatch.com/ws/1.1/track.search?" +
+    "format=jsonp" +
+    "&callback=jsonp" +
+    "&q_track=" +songInput + 
+    "&page_size=20" +
+    "&page=1" +
+    //"&s_artist_rating=desc" + // <------Commented out rating for now
+    "&s_track_release_date=asc" +
+    "&apikey=22ae38424752041f521c1ee852af0c25";
+        
+  if (songInput.length < 1) { 
+    $("#songSearchBox").text("Please enter a song title or part of a song title");
+  } else {
+      checkInput();      
+    };     
+     
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).done(function(response) {
+
+    toParse = response.substring(6, response.length - 2);
+    prsd = JSON.parse(toParse);
+
+    for (var j = 0 ; j < 20 ; j++) {
+      albumIDs.push(prsd.message.body.track_list[j].track.album_id);
+      albums.push(prsd.message.body.track_list[j].track.album_name);
+      artistMBIDs.push(prsd.message.body.track_list[j].track.artist_mbid);
+      trackMBIDs.push(prsd.message.body.track_list[j].track.track_mbid);
+      trackName.push(prsd.message.body.track_list[j].track.track_name);
+      lyricsIDs.push(prsd.message.body.trj].track.lyrics_id);
+
+      var convDate = prsd.message.body.track_list[j].track.first_release_date;    
+      convDate = convDate.slice(0,10);                   
+      relDates.push(moment(convDate).format("L"));               
+    };   //  end j for loop 
+           
+    for (var i = 0; i < trackMBIDs.length; i++) {                    
+      var queryURL2 = "http://ws.audioscrobbler.com/2.0/" +
+                      "?method=album.getinfo&artist_mbid=" +artistMBIDs[i] +
+                      "&track_mbid=" +trackMBIDs[i] +
+                      "&autocorrect=1" +
+                      "&api_key=e47dcd6e943da8b5a8c9f9fee2c19c35&format=json";       
+      $.ajax({
+        url: queryURL2,
+        method: "GET"
+      }).done(function(response){
+          correctedTrackName.push(response.results.trackmatches.track[i].name);
+        });  //end 2nd ajax call
+    };  // end for i loop  
+  });  // end of ajax call        
+};
+// /queryMusixmatch() -----------------------------------
 
 
 //////////////////// DOC.READY \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -83,9 +173,11 @@ $(document).ready(function(){
   });      
   
   // Add on-click event to save search to firebase
-  $("#songSearchButton").on( "click", function() {
+  $("#songSearchButton").on( "click", function(event) {
     // won't click if nothing in form
     event.preventDefault();
+
+    queryMusixmatch();
 
     var firebaseUser = firebase.auth().currentUser;
     var userId = firebaseUser.uid;
@@ -136,6 +228,32 @@ $(document).ready(function(){
   }, function(errorObject) {
       console.log("The read failed: " + errorObject.code);
     }); // /close errorObject
+
+//=================================================================
+
+
+      // This .on("click") function will validate the input and make the Ajax call
+      $("#songSearchButton").on("click", function(event) {        
+        event.preventDefault();    
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//=============================================================
 
 }); // /close document.ready
 
