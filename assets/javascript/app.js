@@ -128,8 +128,6 @@ $('.dropDownListItem').click(function(e) {
   console.log("The read failed: " + errorObject.code);
    }); //close errorObject
 
-}); //close document.ready
-
 
 // KIM MATHIS-----------------------------------
 
@@ -206,3 +204,5 @@ $('.dropDownListItem').click(function(e) {
       };     
       
             });  // end on-click    
+
+}); //close document.ready
