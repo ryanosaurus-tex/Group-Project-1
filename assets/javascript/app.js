@@ -130,7 +130,7 @@ function queryMusixmatch() {
       artistMBIDs.push(prsd.message.body.track_list[j].track.artist_mbid);
       trackMBIDs.push(prsd.message.body.track_list[j].track.track_mbid);
       trackName.push(prsd.message.body.track_list[j].track.track_name);
-      lyricsIDs.push(prsd.message.body.trj].track.lyrics_id);
+      lyricsIDs.push(prsd.message.body.track_list[j].track.lyrics_id);
 
       var convDate = prsd.message.body.track_list[j].track.first_release_date;    
       convDate = convDate.slice(0,10);                   
