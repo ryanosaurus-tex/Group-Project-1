@@ -66,15 +66,13 @@ $(document).ready(function(){
   $("#loginModal").modal({show: true});
 
   // Add on-click event to Google Login Button
-  $("#userLoginButton").on("click", function(){signIn();});
+  $("#userLoginButton").on( "click", signIn() );
 
   // Add on-click event for Google Log Out Link 
-  $("#googleLogoutLink").on("click", function(){
-    signOut();    
-  });
+  $("#googleLogoutLink").on( "click", signOut() );
 
   // Add on-click event to save search to firebase
-  $("#songSearchButton").on("click", function() {
+  $("#songSearchButton").on( "click", function() {
     // won't click if nothing in form
     event.preventDefault();
 
