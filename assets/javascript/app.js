@@ -102,9 +102,10 @@ $(document).ready(function(){
 database.ref().on("value", function(childSnapshot) {
   childSnapshot.forEach(function(childSnapshot){
   var test = childSnapshot.key;
-  var test2 = childSnapshot.val();
+  var test2 = childSnapshot.val();  
   var dropDownMenu = $('#search-dropdown-menu');
   dropDownMenu.empty(); //zero out the list
+  console.log(test);
   
   for(var foo in test2) {
     var value = test2[foo].songSearch;
@@ -112,7 +113,8 @@ database.ref().on("value", function(childSnapshot) {
     //console.log(event);
     var html = "<li><a href='#' class='dropDownListItem' data-name='"+ value + "'>" + value + "</a></li>";
     dropDownMenu.append(html);
-};
+  };
+
 
 $('.dropDownListItem').click(function(e) {
     var name = e.currentTarget;
