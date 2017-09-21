@@ -25,6 +25,7 @@ var user = "";
 var userDisplayName = "";
 var songSearch = "";
 
+var songInput = "";
 var albums = [];
 var albumIDs = [];
 var albumMBIDs = [];
@@ -228,7 +229,7 @@ $(document).ready(function(){
   }, function(errorObject) {
       console.log("The read failed: " + errorObject.code);
     }); // /close errorObject
-  
+
 }); // /close document.ready
 
 
