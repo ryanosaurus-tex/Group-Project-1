@@ -125,35 +125,34 @@ $(document).ready(function(){
 
 //see notes for what i tried and failed
 database.ref().on("value", function(childSnapshot) {
-  childSnapshot.forEach(function(childSnapshot){
-  var test = childSnapshot.key;
-  var test2 = childSnapshot.val();  
-  var dropDownMenu = $('#search-dropdown-menu');
-  dropDownMenu.empty(); //zero out the list
-  console.log(test2);
+  childSnapshot.forEach(function(childSnapshot) {
+    var test = childSnapshot.key;
+    var test2 = childSnapshot.val();  
+    var dropDownMenu = $('#search-dropdown-menu');
+    dropDownMenu.empty(); //zero out the list
+    console.log(test2);
   
-  for(var foo in test2) {
-    var value = test2[foo].songSearch;
-    //var event = "onClick = onHistorySelect('" + value + "')";
-    //console.log(event);
-    var html = "<li><a href='#' class='dropDownListItem' data-name='"+ value + "'>" + value + "</a></li>";
-    dropDownMenu.append(html);
-  };
+    for(var foo in test2) {
+      var value = test2[foo].songSearch;
+      //var event = "onClick = onHistorySelect('" + value + "')";
+      //console.log(event);
+      var html = "<li><a href='#' class='dropDownListItem' data-name='"+ value + "'>" + value + "</a></li>";
+      dropDownMenu.append(html);
 
-
-$('.dropDownListItem').click(function(e) {
-    var name = e.currentTarget;
-    console.log(name.getAttribute("data-name"));
-    var selected = name.getAttribute("data-name");
-    $( '#songSearchBox' ).val(selected);
-    $( "#songSearchButton" ).trigger( "click" );
-});
- // console.log("this is snapshot"+ childSnapshot.val());  
+      $('.dropDownListItem').click(function(e) {
+        var name = e.currentTarget;
+        console.log(name.getAttribute("data-name"));
+        var selected = name.getAttribute("data-name");
+        $( '#songSearchBox' ).val(selected);
+        $( "#songSearchButton" ).trigger( "click" );
+      });
+      // console.log("this is snapshot"+ childSnapshot.val());
+    };
   });
-  
+
 }, function(errorObject) {
-  console.log("The read failed: " + errorObject.code);
-   }); //close errorObject
+    console.log("The read failed: " + errorObject.code);
+  }); //close errorObject
 
 
 
