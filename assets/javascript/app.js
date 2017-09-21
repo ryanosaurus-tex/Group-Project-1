@@ -26,7 +26,7 @@ var songSearch = "";
 //////////////////// FUNCTIONS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 // signIn() Google Account------------------------------
-function userSignIn() {
+function signIn() {
 
   firebase.auth().signInWithPopup(provider).then(function(result) {
   // Creates Google Access Token. Use it to access the Google API.
@@ -49,14 +49,14 @@ function userSignIn() {
 }; // /signIn() Google Account---------------------------
 
 // signOut() Google Account------------------------------
-function userSignOut() {
+function signOut() {
   firebase.auth().signOut().then(function() {
   // Sign-out successful.
   }).catch(function(error) {
   // An error happened.
-  });
-  $("#userName").text("Log In");
+  });  
 };
+
 // /signOut() Google Account-----------------------------
 
 //////////////////// DOC.READY \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -67,10 +67,15 @@ $(document).ready(function(){
   $("#loginModal").modal({show: true});
 
   // Add on-click event to Google Login Button
-  $("#userLoginButton").on( "click", userSignIn() );
+  $("#userLoginButton").on( "click", function(){ 
+      signIn(); 
+    });
 
   // Add on-click event for Google Log Out Link 
-  $("#googleLogoutLink").on( "click", userSignOut() );
+  $("#googleLogoutLink").on( "click", function(){ 
+      signOut();
+      $("#userName").text("Log In");
+    });
 
   // Add on-click event to save search to firebase
   $("#songSearchButton").on( "click", function() {
