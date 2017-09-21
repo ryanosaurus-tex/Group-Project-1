@@ -68,14 +68,25 @@ $(document).ready(function(){
 
   // Add on-click event to Google Login Button
   $("#userLoginButton").on( "click", function(){ 
-      signIn(); 
-    });
+      signIn();
+  });
 
   // Add on-click event for Google Log Out Link 
   $("#googleLogoutLink").on( "click", function(){ 
       signOut();
-      $("#userName").text("Log In");
-      console.log("user signed out!")
+      console.log( user.displayName + " has signed out!")
+      $("#userName").text("Sign In");
+      // Change Sign Out link to say 'Sign In'
+      $("#googleLogoutLink").text("Sign In");
+      // Change Sign Out on click to Sign In on click
+      $("#googleLogoutLink").on( "click", function(){ 
+        signIn();
+        $("#googleLogoutLink").on( "click", function(){ 
+          signOut();
+          $("#googleLogoutLink").text("Sign Out");
+        });
+      });
+      
     });
 
   // Add on-click event to save search to firebase
