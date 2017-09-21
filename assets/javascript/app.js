@@ -79,13 +79,13 @@ $(document).ready(function(){
       // Change Sign Out link to say 'Sign In'
       $("#googleLogoutLink").text("Sign In");
       // Change Sign Out on click to Sign In on click
-      $("#googleLogoutLink").on( "click", function(){ 
-        signIn();
-        $("#googleLogoutLink").on( "click", function(){ 
-          signOut();
-          $("#googleLogoutLink").text("Sign Out");
-        });
-      });
+      // $("#googleLogoutLink").on( "click", function(){ 
+      //   signIn();
+      //   $("#googleLogoutLink").on( "click", function(){ 
+      //     signOut();
+      //     $("#googleLogoutLink").text("Sign Out");
+      //   });
+      // });
       
     });
 
