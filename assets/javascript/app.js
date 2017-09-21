@@ -129,6 +129,8 @@ $('.dropDownListItem').click(function(e) {
    }); //close errorObject
 
 
+
+
 // KIM MATHIS-----------------------------------
 
       // This .on("click") function will validate the input and make the Ajax call
