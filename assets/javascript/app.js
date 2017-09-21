@@ -60,9 +60,9 @@ function signOut() {
 }; // /signOut() Google Account--------------------------
 
 // toggle login/logout link------------------------------
-function toggleLogin () {
+//function toggleLogin () {
  // ADD FUNCTION HERE
-}; // /toggle login/logout link---------------------------
+//}; // /toggle login/logout link---------------------------
 
 // history select-----------------------------------------
 function onHistorySelect(value) {
