@@ -69,9 +69,14 @@ function toggleLogin () {
     signIn();
     $("#googleLogoutLink").text("Sign Out").on( "click", function(){ 
       signOut();
-      toggleLogin();
+      $("#userName").text("Sign In");
+      // Change Sign Out link to say 'Sign In'
+      $("#googleLogoutLink").text("Sign In");
+      // Change Sign Out on click to Sign In on click
+      $("#googleLogoutLink").on( "click", function(){ 
+        signIn();
+      });
     });
-  });
 }; // /toggle login/logout link---------------------------
 
 // history select-----------------------------------------
